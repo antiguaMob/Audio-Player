@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import androidx.media.MediaBrowserServiceCompat
 import com.antigua.myaudioplayer.media.constants.K
+import com.antigua.myaudioplayer.media.exoplayer.MediaSource
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,8 @@ class MediaPlayerService: MediaBrowserServiceCompat() {
     @Inject
     lateinit var exoPlayer: ExoPlayer
 
+    @Inject
+    lateinit var mediaSource: MediaSource
 
     override fun onGetRoot(
         clientPackageName: String,
