@@ -19,7 +19,6 @@ import com.antigua.myaudioplayer.media.constants.K
 import com.antigua.myaudioplayer.media.exoplayer.MediaPlayerNotificationManager
 import com.antigua.myaudioplayer.media.exoplayer.MediaSource
 import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaMetadata
 import com.google.android.exoplayer2.PlaybackException
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector

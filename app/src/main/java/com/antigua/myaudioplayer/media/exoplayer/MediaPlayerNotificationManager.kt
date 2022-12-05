@@ -38,9 +38,6 @@ internal class MediaPlayerNotificationManager(
             setUseRewindAction(false)
             setUseFastForwardAction(false)
         }
-
-
-
     }
 
     fun hideNotification(){
