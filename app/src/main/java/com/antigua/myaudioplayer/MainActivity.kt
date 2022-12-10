@@ -20,6 +20,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.antigua.myaudioplayer.ui.audio.AudioViewModel
+import com.antigua.myaudioplayer.ui.audio.HomeScreen
 import com.antigua.myaudioplayer.ui.theme.MyAudioPlayerTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
@@ -38,9 +39,9 @@ class MainActivity : ComponentActivity() {
 
                 val lifecycleOwner = LocalLifecycleOwner.current
 
-                DisposableEffect(key1 = lifecycleOwner ){
-                    val observer = LifecycleEventObserver{ _,event ->
-                        if(event == Lifecycle.Event.ON_RESUME ){
+                DisposableEffect(key1 = lifecycleOwner) {
+                    val observer = LifecycleEventObserver { _, event ->
+                        if (event == Lifecycle.Event.ON_RESUME) {
                             permissionState.launchPermissionRequest()
                         }
                     }
@@ -55,15 +56,29 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    if(permissionState.hasPermission){
+                    if (permissionState.hasPermission) {
                         val audioViewModel = viewModel(
                             modelClass = AudioViewModel::class.java
                         )
                         val audiolist = audioViewModel.audioList
-
-
+                        HomeScreen(
+                            progress = audioViewModel.currentAudioProgress.value,
+                            onProgressChange = {
+                                  audioViewModel.seekTo(it)
+                            },
+                            isAudioPlaying =audioViewModel.isAudioPlaying,
+                            audioList = audiolist,
+                            currentPlayingAudio = audioViewModel.currentPlayingAudio.value,
+                            onStart = { audioViewModel.playAudio(it) },
+                            onItemClick = {
+                                audioViewModel.playAudio(it)
+                            },
+                            onNext = {
+                                audioViewModel.skipToNext()
+                            }
+                        )
                     } else {
-                        Box(contentAlignment = Alignment.Center){
+                        Box(contentAlignment = Alignment.Center) {
                             Text(text = "Grant permission first to usethis app")
                         }
                     }
